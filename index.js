@@ -41,6 +41,8 @@ const express = require("express");
 const app = express();
 
 app.listen(3000);
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true })); //to get json response
 
 app.get("/", (reqest, response) => {
   response.sendFile("./views/index.html", { root: __dirname });
@@ -54,9 +56,14 @@ app.get("/about-me", (reqest, response) => {
   response.redirect("/about");
 });
 
+app.get("/podaci", (reqest, response) => {
+  console.log("podaci");
+  response.write("podaci");
+  response.end();
+});
+
 /*app.use((reqest, response) => {
   response.status(404).sendFile("./views/404.html", { root: __dirname });
 });*/
 
-app.use(express.static("public"));
 console.log("object", express.static("public"));
